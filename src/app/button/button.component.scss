@@ -1,0 +1,18 @@
+@import '../../css/variables';
+@import '../../css/mixins';
+
+:host {
+    grid-area: 4 / 2 / 5 / 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include card-scheme();
+    
+    height: 70%;
+    width: 100%;
+    align-self: center;
+
+    @media (min-width: $responsive_breakpoint) {
+
+    }
+}

@@ -1,1 +1,42 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import './css/variables';
+
+@font-face {
+    font-family: 'Lato';
+    src: url('./assets/fonts/Lato-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Anton';
+    src: url('./assets/fonts/Anton-Regular.ttf') format('truetype');
+    
+}
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url('./assets/fonts/OpenSans-Regular.ttf') format('truetype');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    
+}
+
+body {
+    text-align: center;
+    height: 100vh;
+    width: 100vw;
+    font-family: 'Lato', sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+button {
+    outline: none;
+    border: 0;
+}
