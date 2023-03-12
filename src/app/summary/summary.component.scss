@@ -1,0 +1,13 @@
+@import '../../css/variables';
+@import '../../css/mixins';
+
+:host {
+    @include card-scheme();
+    grid-area: 5 / 2 / 6 / 3;
+    display: grid;
+    grid-template-rows: 5vh auto;
+
+    @media (min-width: $responsive_breakpoint) {
+        
+    }
+}

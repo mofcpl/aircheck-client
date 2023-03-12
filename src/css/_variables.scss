@@ -1,0 +1,19 @@
+$primary-color: rgb(213, 242, 255);
+$secondary-color: rgba(2, 195, 154, 1);
+
+$card-background-header: adjust-color($primary-color, $lightness: - 60%);
+$header-bottom-border: adjust-color($primary-color, $lightness: - 70%);
+$header-top-border: adjust-color($primary-color, $lightness: - 50%);
+$card-header: white;
+$card-background: $primary-color;
+$article-header: adjust-color($primary-color, $lightness: - 60%);
+$logo-color1: $primary-color;
+$logo-color2: $secondary-color;
+$article-fold-top: adjust-color($primary-color, $lightness: + 10%);
+$article-fold-bottom: adjust-color($primary-color, $lightness: - 10%);
+$button-text-hover: $secondary-color;
+$link-color: rgb(87, 177, 8);
+
+
+
+$responsive_breakpoint: 800px;

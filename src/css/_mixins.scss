@@ -1,0 +1,97 @@
+@import 'variables';
+
+@mixin flex-center() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin bar-style() {
+    @include flex-center();
+    background-color: $card-background-header;
+    border-bottom: 2px solid $header-bottom-border;
+    border-top: 2px solid $header-top-border;
+}
+
+@mixin card-scheme() {
+
+    border-radius: 10px;
+    overflow: hidden;
+
+    >header {
+
+        @include bar-style();
+        width: 100%;
+        
+        >h1 {
+            
+            font-family: 'Anton', sans-serif;
+            font-size: 110px;
+            color: $logo-color1;
+            font-weight: 100;
+
+            >span {
+                color: $logo-color2;
+                font-size: 80px; 
+            }
+        }
+        >h2 {
+            @include flex-center();
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 18px;
+            color: $card-header;
+            font-weight: 400;
+        }
+    }
+
+    >section {
+        background-color: $card-background;
+
+        >div {
+            height: 50%;
+            >h3 {
+                font-size: 18px;
+                color: $article-header;
+                font-weight: 400;
+            }
+        }
+
+        >.first {
+            border-bottom: 1px solid $article-fold-bottom;
+        }
+
+        >.last {
+            border-top: 1px solid $article-fold-top;
+        }
+
+        >.big {
+            height: 60%;
+        }
+
+        >.small {
+            height: 40%;
+        }
+    }
+
+    >button {
+        @include bar-style();
+        color: white;
+        font-size: 28px;
+        font-family: 'Anton', sans-serif;
+        font-weight: 100;
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+
+        &:hover {
+            color: $button-text-hover;
+        }
+
+        &:active {
+            
+            background-color: adjust-color(rgb(213, 242, 255), $lightness: - 70%);
+            border-top: 2px solid adjust-color(rgb(213, 242, 255), $lightness: - 80%);
+            border-bottom: 2px solid adjust-color(rgb(213, 242, 255), $lightness: - 60%);
+        }
+    }
+}
