@@ -48,16 +48,25 @@
         background-color: $card-background;
 
         >div {
+            display: flex;
+            flex-direction: column;
+
             height: 50%;
             >h3 {
                 font-size: 18px;
                 color: $article-header;
                 font-weight: 400;
+                
+            }
+
+            >article{
+                flex-grow: 1;
             }
         }
 
         >.first {
             border-bottom: 1px solid $article-fold-bottom;
+            font-size: 50px;
         }
 
         >.last {

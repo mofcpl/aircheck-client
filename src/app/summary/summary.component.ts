@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./summary.component.scss']
 })
 export class SummaryComponent {
+  summary = 'Bardzo dobry';
+  date = '12.03.1999 15:34'
 
 }

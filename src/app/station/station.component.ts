@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./station.component.scss']
 })
 export class StationComponent {
-
+  name = 'Warszawska';
+  distance = '1000m'
 }
