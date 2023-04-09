@@ -7,7 +7,28 @@
     display: grid;
     grid-template-rows: 5vh auto;
 
+    article{
+        flex-grow: 1;
+        @include flex-center();
+        font-family: 'Anton', sans-serif;       
+    }
+
+    .first {
+        font-size: 50px;
+    }
+
+    .last {
+        font-size: 20px;
+    }
+
     @media (min-width: $responsive_breakpoint) {
+        .first {
+            font-size: 65px;
+        }
+    
+        .last {
+            font-size: 25px;
+        }
         
     }
 }
