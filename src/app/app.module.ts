@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {HttpClientModule} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { TitleComponent } from './title/title.component';
@@ -9,6 +10,8 @@ import { SummaryComponent } from './summary/summary.component';
 import { ButtonComponent } from './button/button.component';
 import { DescComponent } from './desc/desc.component';
 
+import { DistancePipe } from './station/distance.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,10 +20,12 @@ import { DescComponent } from './desc/desc.component';
     DataComponent,
     SummaryComponent,
     ButtonComponent,
-    DescComponent
+    DescComponent,
+    DistancePipe
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

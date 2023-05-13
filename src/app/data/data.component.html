@@ -1,5 +1,14 @@
 <section>
     <header>pomiary</header>
-    <article></article>
+    <article>
+      <div class="sensor" *ngFor="let result of data">
+         <div class="name">{{  result.name }}</div> 
+         <div class="bar">
+             <div  [ngStyle]="{width: 100/(valueLevels[result.code][result.level] / result.value) +'%', backgroundColor: colors[result.level]}" class="fulfillment"></div>
+         </div>
+         <div class="value">{{ result.value }} μg/m3</div>
+         
+     </div>
+    </article>
 </section>
 

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-button',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./button.component.scss']
 })
 export class ButtonComponent {
+
+  constructor( private dataService: DataService) {
+  }
+
+  onButtonPush() {
+    this.dataService.check();
+  }
 
 }
