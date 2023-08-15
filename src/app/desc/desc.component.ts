@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DataService } from '../data.service';
 
-import Utils from '../utils';
+import { UtilsService } from '../utils.service';
 
 @Component({
   selector: 'app-desc',
@@ -10,10 +10,10 @@ import Utils from '../utils';
 })
 export class DescComponent {
 
-   indexDescription = Utils.indexDesc;
+   indexDescription = this.utilsService.indexDesc;
    indexID: number = -1;
 
-   constructor(private dataService: DataService) {}
+   constructor(private dataService: DataService, private utilsService: UtilsService) {}
 
    ngOnInit() {
       this.dataService.getSummary().subscribe((summary) => this.indexID = summary.stIndexLevel.id)

@@ -1,13 +1,17 @@
+import { Injectable } from "@angular/core";
 import { Position } from "./models/position.model";
 
 interface IIndexable {
    [key: string]: number[];
- }
+}
 
-export default class Utils {
+@Injectable({
+   providedIn: 'root'
+})
+export class UtilsService {
 
    //https://stackoverflow.com/a/1502821
-   static calcDistance(pos1: Position, pos2: Position) {
+   calcDistance(pos1: Position, pos2: Position) {
       const degToRad = (x: number) => {
          return x * Math.PI / 180;
       }
@@ -23,7 +27,7 @@ export default class Utils {
       return d; // returns the distance in meter
    }
 
-   static readonly indexDesc = [
+   readonly indexDesc = [
       "Jakość powietrza jest bardzo dobra, zanieczyszczenie powietrza nie stanowi zagrożenia dla zdrowia, warunki bardzo sprzyjające do wszelkich aktywności na wolnym powietrzu, bez ograniczeń.",
       "Jakość powietrza jest zadowalająca, zanieczyszczenie powietrza powoduje brak lub niskie ryzyko zagrożenia dla zdrowia. Można przebywać na wolnym powietrzu i wykonywać dowolną aktywność, bez ograniczeń.",
       "Jakość powietrza jest akceptowalna. Zanieczyszczenie powietrza może stanowić zagrożenie dla zdrowia w szczególnych przypadkach (dla osób chorych, osób starszych, kobiet w ciąży oraz małych dzieci). Warunki umiarkowane do aktywności na wolnym powietrzu.",
@@ -33,9 +37,9 @@ export default class Utils {
       "„Brak Indeksu” odpowiada sytuacji, gdy na danej stacji pomiarowej nie są aktualnie prowadzone pomiary pyłu zawieszonego lub ozonu, a jeden z nich jest w danej chwili decydującym zanieczyszczeniem powietrza w województwie. Indeks Jakości Powietrza nie jest wtedy wyznaczany [...]. Stacja pomimo braku określonego Indeksu jest nadal widoczna i jest możliwość sprawdzenia wszystkich pozostałych wyników pomiarów."
    ];
 
-   static readonly colors = ["#57b108", '#b0dd10', '#ffd911', '#e58100', '#e50000', '#990000'];
+   readonly colors = ["#57b108", '#b0dd10', '#ffd911', '#e58100', '#e50000', '#990000'];
 
-   static readonly maxValues :IIndexable = {
+   readonly maxValues :IIndexable = {
       'C6H6': [6, 11, 16, 21, 51],
       'CO': [3000, 7000, 11000, 15000, 21000],
       'NO2': [41, 101, 151, 201, 401],

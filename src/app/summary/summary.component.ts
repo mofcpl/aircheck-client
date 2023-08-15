@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { DataService } from '../data.service';
-
-import Utils from '../utils';
+import { UtilsService } from '../utils.service';
 
 @Component({
    selector: 'app-summary',
@@ -11,10 +10,10 @@ import Utils from '../utils';
 export class SummaryComponent {
    summary: string = "";
    date: string = "";
-   colors = Utils.colors;
+   colors = this.utilsService.colors;
    indexID: number = 0;
 
-   constructor(private dataService: DataService) {}
+   constructor(private dataService: DataService, private utilsService: UtilsService) {}
 
    ngOnInit() {
       this.dataService.getSummary().subscribe((summary)=> {

@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { DataService } from '../data.service';
 import { combineLatest, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import Utils from '../utils';
+import { UtilsService } from '../utils.service';
 
 @Component({
   selector: 'app-data',
@@ -12,10 +11,10 @@ import Utils from '../utils';
 })
 export class DataComponent {
 
-   constructor(private dataService: DataService) {}
+   constructor(private dataService: DataService,  private utilsService: UtilsService) {}
 
-   valueLevels = Utils.maxValues;
-   colors = Utils.colors;
+   valueLevels = this.utilsService.maxValues;
+   colors = this.utilsService.colors;
    data: {code: string; name: string; value: number; level: number}[] = [];
 
    ngOnInit() {

@@ -3,12 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, combineLatest, forkJoin } from 'rxjs';
 import { concatMap, mergeMap, map, switchMap, shareReplay } from 'rxjs/operators';
 
+import { UtilsService } from './utils.service';
 import { Station } from './models/station.model';
 import { Sensor } from './models/sensor.model';
 import { Data } from './models/data.model';
 import { Summary } from './models/summary.model';
-
-import Utils from './utils';
 
 @Injectable({
    providedIn: 'root'
@@ -23,6 +22,8 @@ export class DataService {
    private dataSubject = new Subject<Data[]>;
    private summarySubject = new Subject<Summary>;
    private distanceSubject = new Subject<number>;
+
+   constructor(private http: HttpClient, private utilsService: UtilsService) { }
 
    getStation(): Observable<Station> {
       return this.stationSubject.asObservable();
@@ -43,8 +44,6 @@ export class DataService {
    getDistance(): Observable<number> {
       return this.distanceSubject.asObservable();
    }
-
-   constructor(private http: HttpClient) { }
 
    fetchPosition(): Observable<GeolocationCoordinates> {
       return new Observable(obs => {
@@ -70,7 +69,7 @@ export class DataService {
                const newLat = +element.gegrLat;
                const newLng = +element.gegrLon;
 
-               const newDistance = Utils.calcDistance({ latitude: position.latitude, longitude: position.longitude }, { latitude: newLat, longitude: newLng });
+               const newDistance = this.utilsService.calcDistance({ latitude: position.latitude, longitude: position.longitude }, { latitude: newLat, longitude: newLng });
 
                if (index == 0) {
                   closestStationIndex = index;
