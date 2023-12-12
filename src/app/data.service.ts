@@ -8,14 +8,12 @@ import { Station } from './models/station.model';
 import { Sensor } from './models/sensor.model';
 import { Data } from './models/data.model';
 import { Summary } from './models/summary.model';
+import { environment } from './../environments/environment';
 
 @Injectable({
    providedIn: 'root'
 })
 export class DataService {
-
-   readonly proxyServer = "https://cors-anywhere.herokuapp.com/";
-   readonly api = "http://api.gios.gov.pl/pjp-api/rest/";
 
    private stationSubject = new Subject<Station>;
    private sensorsSubject = new Subject<Sensor[]>;
@@ -60,7 +58,7 @@ export class DataService {
    }
 
    fetchNearestStation(position: GeolocationCoordinates): Observable<{station: Station, distance: number}> {
-      return this.http.get<Station[]>(this.proxyServer + this.api + "station/findAll").pipe(
+      return this.http.get<Station[]>(environment.api + "station/findAll").pipe(
          map((stations) => {
             let closestStationIndex = 0;
             let closestDistance = 0;
@@ -88,16 +86,16 @@ export class DataService {
    }
 
    fetchSensors(stationAndDistance: {station: Station, distance: Number}): Observable<Sensor[]> {
-      return this.http.get<Sensor[]>(this.proxyServer + this.api + "station/sensors/" + stationAndDistance.station.id)
+      return this.http.get<Sensor[]>(environment.api + "station/sensors/" + stationAndDistance.station.id)
    }
 
    fetchData(sensors: Sensor[]): Observable<Data[]> {
-      const requests = sensors.map((sensor) => this.http.get<Data>(this.proxyServer + this.api + "data/getData/" + sensor.id))
+      const requests = sensors.map((sensor) => this.http.get<Data>(environment.api + "data/getData/" + sensor.id))
       return forkJoin(requests)
    }
 
    fetchSummary(stationAndDistance: {station: Station, distance: Number}): Observable<Summary> {
-      return this.http.get<Summary>(this.proxyServer + this.api + "aqindex/getIndex/" + stationAndDistance.station.id)
+      return this.http.get<Summary>(environment.api + "aqindex/getIndex/" + stationAndDistance.station.id)
    }
 
    check() {
