@@ -1,27 +1,47 @@
-# AirCheck
+# Aircheck
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.1.
+Aircheck is a web application utilizing geolocation services to identify the nearest air quality monitoring station. It fetches data from the selected station, displaying key pollutant levels such as PM2.5, PM10, ozone, sulfur dioxide, nitrogen dioxide, and carbon monoxide. The interface provides a summary of air quality conditions and may offer recommendations based on the severity of pollution levels.
 
-## Development server
+The project was developed with the primary goal of learning web communication with API servers.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Data comes from [GIOŚ](https://powietrze.gios.gov.pl/)
 
-## Code scaffolding
+## Requirements
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Node.js is required for the development environment, with a minimum supported version of 18.10.0. This version is necessary due to Angular requirements.
 
-## Build
+Running [aircheck-server](https://github.com/mofcpl/aircheck-server) is required for this project to work.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Installation
 
-## Running unit tests
+### Clone this repository
+```bash
+git clone https://github.com/mofcpl/aircheck-client.git
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Install dependencies
+```bash
+npm install
+```
 
-## Running end-to-end tests
+### Run development server
+```bash
+ng serve
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Technologies
 
-## Further help
+* Angular 16
+* RxJS 7
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Contributing
+
+1. Clone the repository and make a new branch from develop.
+2. Make changes.
+3. Open a Pull Request with a comprehensive description of changes.
+
+This project uses Git Flow branching model for development.
+
+## Notes
+
+Aircheck is a continuation of the earlier project, [Airtest](https://github.com/mofcpl/air-test), which was developed in a different technology stack.
