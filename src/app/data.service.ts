@@ -58,7 +58,7 @@ export class DataService {
    }
 
    fetchNearestStation(position: GeolocationCoordinates): Observable<{station: Station, distance: number}> {
-      return this.http.get<Station[]>(environment.api + "station/findAll").pipe(
+      return this.http.get<Station[]>(environment.api + "station/findAll/").pipe(
          map((stations) => {
             let closestStationIndex = 0;
             let closestDistance = 0;
