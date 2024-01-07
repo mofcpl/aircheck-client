@@ -78,11 +78,11 @@
     }
 
     .icon {
-        width: 50px;
         height: 50px;
+        width: auto;
     }
 
-    @media (min-width: $responsive_breakpoint) {
+    @media only screen and ((min-width: $responsive_breakpoint_width) and (min-height: $responsive_breakpoint_height)) {
         display: grid;
     }
 }

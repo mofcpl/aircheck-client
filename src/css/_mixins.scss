@@ -38,9 +38,13 @@
         >h2 {
             @include flex-center();
             font-family: 'Source Sans Pro', sans-serif;
-            font-size: 18px;
+            font-size: 13px;
             color: $card-header;
             font-weight: 400;
+
+            @media only screen and ((min-width: $responsive_breakpoint_width) and (min-height: $responsive_breakpoint_height)) {
+                font-size: 18px;
+            }
         }
     }
 
@@ -53,10 +57,12 @@
 
             height: 50%;
             >h3 {
-                font-size: 18px;
+                font-size: 11px;
                 color: $article-header;
                 font-weight: 400;
-                
+                @media only screen and ((min-width: $responsive_breakpoint_width) and (min-height: $responsive_breakpoint_height)) {
+                    font-size: 18px;
+                }
             }
 
             >article{

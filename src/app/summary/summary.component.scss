@@ -14,14 +14,14 @@
     }
 
     .first {
-        font-size: 50px;
+        font-size: 40px;
     }
 
     .last {
-        font-size: 20px;
+        font-size: 15px;
     }
 
-    @media (min-width: $responsive_breakpoint) {
+    @media only screen and ((min-width: $responsive_breakpoint_width) and (min-height: $responsive_breakpoint_height)) {
         .first {
             font-size: 65px;
         }

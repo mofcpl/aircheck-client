@@ -4,14 +4,20 @@
    grid-area: 3 / 2 / 4 / 3;
 
    >section {
+      height: 100%;
+
       >header {
          font-size: 18px;
-         padding: 10px;
-         color: rgb(124, 124, 124)
+         color: rgb(124, 124, 124);
+         height: 10%;
       }
 
       >article {
          width: 100%;
+         height: 90%;
+         display: flex;
+         flex-direction: column;
+         justify-content: flex-start;
       }
 
    }
@@ -25,11 +31,11 @@
 
       width: 100%;
       height: 4vh;
-      margin-bottom: 1vh;
+      margin-bottom: 10px;
 
       line-height: 1em;
       font-size: 18px;
-      font-family: 'Big Shoulders Display', cursive;
+      font-family: 'Barlow Condensed';
       letter-spacing: 0.01ex;
 
       .bar {
@@ -61,7 +67,7 @@
 
    }
 
-   @media (min-width: $responsive_breakpoint) {
+   @media only screen and ((min-width: $responsive_breakpoint_width) and (min-height: $responsive_breakpoint_height)) {
       grid-area: 2 / 3 / 4 / 4;
 
       >section {

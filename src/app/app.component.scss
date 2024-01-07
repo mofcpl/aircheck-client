@@ -8,7 +8,7 @@
     grid-template-columns: 1fr 13fr 1fr;
     grid-template-rows: 1fr 11fr 24fr 5fr 13fr 1fr;
 
-    @media (min-width: $responsive_breakpoint) {
+    @media only screen and ((min-width: $responsive_breakpoint_width) and (min-height: $responsive_breakpoint_height)) {
         grid-template-columns: 1fr 10fr 16fr 1fr;
         grid-template-rows: 1fr 8fr 11fr 5fr 13fr 1fr;
     }

@@ -10,10 +10,10 @@
     article{
         @include flex-center();
         font-family: 'Anton', sans-serif;
-        font-size: 30px;
+        font-size: 20px;
     }
 
-    @media (min-width: $responsive_breakpoint) {
+    @media only screen and ((min-width: $responsive_breakpoint_width) and (min-height: $responsive_breakpoint_height)) {
         grid-area: 3 / 2 / 4 / 3; 
         article {
             font-size: 38px;
