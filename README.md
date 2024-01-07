@@ -2,9 +2,21 @@
 
 Aircheck is a web application utilizing geolocation services to identify the nearest air quality monitoring station. It fetches data from the selected station, displaying key pollutant levels such as PM2.5, PM10, ozone, sulfur dioxide, nitrogen dioxide, and carbon monoxide. The interface provides a summary of air quality conditions and may offer recommendations based on the severity of pollution levels.
 
+[Project site](https://aircheck.zbrogd.pl/)
+
 The project was developed with the primary goal of learning web communication with API servers.
 
 Data comes from [GIOŚ](https://powietrze.gios.gov.pl/)
+
+## Technologies
+
+* Angular 16
+* RxJS 7
+
+## To do
+
+- Ability to choose a station other than the nearest one.
+- Popup warning regarding the inability to use the application if you do not consent to check the location.
 
 ## Requirements
 
@@ -28,11 +40,6 @@ npm install
 ```bash
 ng serve
 ```
-
-## Technologies
-
-* Angular 16
-* RxJS 7
 
 ## Contributing
 
