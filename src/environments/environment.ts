@@ -1,3 +1,3 @@
 export const environment = {
-    api: "https://csspatternapp.zbrogd.pl/",
+    api: "https://aircheck.zbrogd.pl/",
 };
