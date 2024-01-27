@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, combineLatest, forkJoin } from 'rxjs';
-import { concatMap, mergeMap, map, switchMap, shareReplay } from 'rxjs/operators';
+import { concatMap, mergeMap, map, switchMap, shareReplay, tap } from 'rxjs/operators';
 
 import { UtilsService } from './utils.service';
 import { Station } from './models/station.model';
@@ -9,6 +9,7 @@ import { Sensor } from './models/sensor.model';
 import { Data } from './models/data.model';
 import { Summary } from './models/summary.model';
 import { environment } from './../environments/environment';
+import { ApiService } from './api.service';
 
 @Injectable({
    providedIn: 'root'
@@ -21,7 +22,7 @@ export class DataService {
    private summarySubject = new Subject<Summary>;
    private distanceSubject = new Subject<number>;
 
-   constructor(private http: HttpClient, private utilsService: UtilsService) { }
+   constructor(private apiService: ApiService, private utilsService: UtilsService) { }
 
    getStation(): Observable<Station> {
       return this.stationSubject.asObservable();
@@ -43,73 +44,57 @@ export class DataService {
       return this.distanceSubject.asObservable();
    }
 
-   fetchPosition(): Observable<GeolocationCoordinates> {
-      return new Observable(obs => {
-         navigator.geolocation.getCurrentPosition(
-            position => {
-               obs.next(position.coords);
-               obs.complete();
-            },
-            error => {
-               obs.error(error);
+   getNearestStation(position: GeolocationCoordinates, stations: Station[]): { station: Station, distance: number } {
+      let closestStationIndex = 0;
+      let closestDistance = 0;
+
+      stations.forEach((element, index, array) => {
+         const newLat = +element.gegrLat;
+         const newLng = +element.gegrLon;
+
+         const newDistance = this.utilsService.calcDistance({ latitude: position.latitude, longitude: position.longitude }, { latitude: newLat, longitude: newLng });
+
+         if (index == 0) {
+            closestStationIndex = index;
+            closestDistance = newDistance;
+         } else {
+            if (newDistance < closestDistance) {
+               closestStationIndex = index;
+               closestDistance = newDistance;
             }
-         );
-      })
-   }
+         }
+      });
 
-   fetchNearestStation(position: GeolocationCoordinates): Observable<{station: Station, distance: number}> {
-      return this.http.get<Station[]>(environment.api + "station/findAll").pipe(
-         map((stations) => {
-            let closestStationIndex = 0;
-            let closestDistance = 0;
-
-            stations.forEach((element, index, array) => {
-               const newLat = +element.gegrLat;
-               const newLng = +element.gegrLon;
-
-               const newDistance = this.utilsService.calcDistance({ latitude: position.latitude, longitude: position.longitude }, { latitude: newLat, longitude: newLng });
-
-               if (index == 0) {
-                  closestStationIndex = index;
-                  closestDistance = newDistance;
-               } else {
-                  if (newDistance < closestDistance) {
-                     closestStationIndex = index;
-                     closestDistance = newDistance;
-                  }
-               }
-            });
-
-            return {station: stations[closestStationIndex], distance: closestDistance};
-         })
-      )
-   }
-
-   fetchSensors(stationAndDistance: {station: Station, distance: Number}): Observable<Sensor[]> {
-      return this.http.get<Sensor[]>(environment.api + "station/sensors/" + stationAndDistance.station.id)
-   }
-
-   fetchData(sensors: Sensor[]): Observable<Data[]> {
-      const requests = sensors.map((sensor) => this.http.get<Data>(environment.api + "data/getData/" + sensor.id))
-      return forkJoin(requests)
-   }
-
-   fetchSummary(stationAndDistance: {station: Station, distance: Number}): Observable<Summary> {
-      return this.http.get<Summary>(environment.api + "aqindex/getIndex/" + stationAndDistance.station.id)
+      return {station: stations[closestStationIndex], distance: closestDistance};
    }
 
    check() {
-      const stationID$ = this.fetchPosition().pipe(concatMap(this.fetchNearestStation.bind(this)), shareReplay());
-      const sensors$ = stationID$.pipe(concatMap(this.fetchSensors.bind(this)), shareReplay());
-      const data$ = sensors$.pipe(concatMap(this.fetchData.bind(this)));
-      const summary$ = stationID$.pipe(concatMap(this.fetchSummary.bind(this)));
 
-      stationID$.subscribe((stationAndDistance) => {
-         this.stationSubject.next(stationAndDistance.station)
-         this.distanceSubject.next(stationAndDistance.distance)
-      });
-      sensors$.subscribe((sensor) => this.sensorsSubject.next(sensor));
-      data$.subscribe((data) => this.dataSubject.next(data));
-      summary$.subscribe((summary) => this.summarySubject.next(summary));
+      forkJoin([this.apiService.fetchPosition(), this.apiService.fetchStations()]).pipe(
+         map(([position, stations]) => this.getNearestStation(position, stations)),
+         tap(data => {
+            this.stationSubject.next(data.station)
+            this.distanceSubject.next(data.distance)
+         })
+      ).subscribe()
+
+      this.stationSubject.pipe(
+         switchMap( station => this.apiService.fetchSummary(station.id)),
+         tap( summary => {
+            this.summarySubject.next(summary)
+         })
+      ).subscribe()
+
+      this.stationSubject.pipe(
+         switchMap( station => this.apiService.fetchSensors(station.id)),
+         tap( sensors => {
+            this.sensorsSubject.next(sensors)
+         }),
+         switchMap( sensors => forkJoin(sensors.map( sensor => this.apiService.fetchData(sensor.id)))),
+         tap( data => {
+            this.dataSubject.next(data)
+         })
+      ).subscribe()
+
    }
 }
