@@ -22,7 +22,7 @@ Data comes from [GIOŚ](https://powietrze.gios.gov.pl/)
 
 Node.js is required for the development environment, with a minimum supported version of 18.10.0. This version is necessary due to Angular requirements.
 
-Running [aircheck-server](https://github.com/mofcpl/aircheck-server-node) is required for this project to work.
+Running [aircheck-server](https://github.com/mofcpl/aircheck-server) is required for this project to work.
 
 ## Installation
 
